@@ -3,7 +3,7 @@
 " **************************
 
 set encoding=utf-8
-set guifont=FiraCode\ Nerd\ Font:h18
+set guifont=FiraCode\ Nerd\ Font,DejaVuSans:h18
 
 set tabstop=4
 set shiftwidth=4
@@ -75,8 +75,16 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'scrooloose/nerdtree'
 Plug 'dracula/vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Language-specific Plugs
+
+Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'davidhalter/jedi-vim'
 
 " **************************
 
