@@ -13,6 +13,8 @@ set relativenumber
 set lcs+=space:·
 set invlist
 
+set clipboard=unnamedplus
+
 filetype plugin indent on
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
@@ -79,12 +81,14 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'luochen1990/rainbow'
 
 " Language-specific Plugs
 
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
+Plug 'puremourning/vimspector'
 
 " **************************
 
@@ -235,21 +239,36 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " **************************
+" Plugs Configuration
+" **************************
+
+let g:neovide_cursor_vfx_mode = 'railgun'
+
+let NERDTreeShowHidden = 1
+let NERDTreeMinimalUI = 1
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+let g:vimspector_enable_mappings = 'HUMAN'
+" For normal mode, the word under the cursor.
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" For visual mode, the visually selected text.
+xmap <Leader>di <Plug>VimspectorBalloonEval
+
+let g:rainbow_active = 1
+
+let g:dracula_colorterm = 1
+
+" **************************
 " Settings - Continued
 " **************************
 
 syntax on
 
-let g:neovide_cursor_vfx_mode = "railgun"
-let NERDTreeShowHidden = 1
-" let NERDTreeMinimalUI = 1
-
 tnoremap jj <C-\><C-n>
 
 set termguicolors
-let g:dracula_colorterm = 1
-
-nmap <F6> :NERDTreeToggle<CR>
 
 color dracula
-
