@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+TryExec=postman
+Exec=postman
+Icon=postman
+Terminal=false
+Categories=System;
+
+Name=Postman
+GenericName=Postman
+Comment=Postman API Platform
+StartupWMClass=Postman
+Actions=New;
