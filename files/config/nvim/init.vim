@@ -9,35 +9,38 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+set lazyredraw
+set laststatus=2
+
 set relativenumber
-set lcs+=space:·
+set number
 set invlist
+set backspace=2
+set showcmd
+set mouse=a
+set nowrap
 
 set clipboard=unnamedplus
 
 filetype plugin indent on
 
+set autoindent
+set scrolloff=2
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
 set encoding=utf-8
-
 " TextEdit might fail if hidden is not set.
 set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
 " Give more space for displaying messages.
 set cmdheight=2
-
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
-
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -82,13 +85,17 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'luochen1990/rainbow'
+Plug 'machakann/vim-highlightedyank'
 
 " Language-specific Plugs
 
+Plug 'plasticboy/vim-markdown'
+Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'davidhalter/jedi-vim'
-Plug 'puremourning/vimspector'
+Plug 'davidhalter/jedi-vim'
+" Plug 'puremourning/vimspector'
 
 " **************************
 
@@ -272,3 +279,4 @@ tnoremap jj <C-\><C-n>
 set termguicolors
 
 color dracula
+
