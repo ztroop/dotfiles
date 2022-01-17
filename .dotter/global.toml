@@ -1,0 +1,5 @@
+[zsh.files]
+zshrc = "~/.zshrc"
+
+[vim.files]
+vimrc = "~/.config/nvim/init.vim"
