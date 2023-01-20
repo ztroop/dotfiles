@@ -1,5 +1,11 @@
+[helpers]
+color_hex2rgb = "dotter_settings/helpers/color_hex2rgb.rhai"
+
+[tmux.files]
+tmux = "~/.tmux.conf"
+
 [zsh.files]
 zshrc = "~/.zshrc"
 
 [vim.files]
-vimrc = "~/.config/nvim/init.vim"
+nvim = "~/.config/nvim/init.lua"
