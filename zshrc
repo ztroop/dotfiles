@@ -8,7 +8,6 @@ plugins=(zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 alias code="code-oss"
-alias eg="sudo eopkg"
 alias ls="exa --long --header --git"
 alias l="exa --long --header --git --all"
 alias cat="bat -p"
@@ -17,7 +16,6 @@ alias vi="nvim"
 alias n="nvim"
 alias b="bat -p"
 alias ..="cd .."
-alias binstall="bundle install --path=vendor/bundle"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
