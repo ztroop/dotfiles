@@ -7,6 +7,7 @@ DEST_DIR="$HOME/.config/nvim/lua"
 # Function to copy from source to destination
 copy_to_config() {
     echo "Copying contents from $SOURCE_DIR to $DEST_DIR"
+    mkdir -p "$DEST_DIR"
     cp -r "$SOURCE_DIR" "$DEST_DIR"
 }
 
