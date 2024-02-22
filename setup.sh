@@ -65,6 +65,14 @@ else
     echo "nvm is already installed."
 fi
 
+if command -v cargo &> /dev/null; then
+    echo "Rust is already installed. Updating..."
+    rustup update
+else
+    echo "Rust not found. Installing Rust..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
 # Copy the .zshrc file to the home directory
 cp zshrc ~/.zshrc
 # Copy the .tmux.conf file to the home directory
