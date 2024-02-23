@@ -8,13 +8,13 @@ DEST_DIR="$HOME/.config/nvim/lua"
 copy_to_config() {
     echo "Copying contents from $SOURCE_DIR to $DEST_DIR"
     mkdir -p "$DEST_DIR"
-    cp -r "$SOURCE_DIR" "$DEST_DIR"
+    rsync -r "$SOURCE_DIR/" "$DEST_DIR/"
 }
 
 # Function to copy from destination to source
 copy_from_config() {
     echo "Copying contents from $DEST_DIR to $SOURCE_DIR"
-    cp -r "$DEST_DIR" "$SOURCE_DIR"
+    rsync -r "$DEST_DIR" "$SOURCE_DIR"
 }
 
 # Check for the required argument

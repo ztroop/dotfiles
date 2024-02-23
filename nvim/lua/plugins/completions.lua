@@ -1,5 +1,8 @@
 return {
   {
+    "github/copilot.vim",
+  },
+  {
     "hrsh7th/cmp-nvim-lsp",
   },
   {
