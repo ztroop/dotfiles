@@ -14,7 +14,7 @@ copy_to_config() {
 # Function to copy from destination to source
 copy_from_config() {
     echo "Copying contents from $DEST_DIR to $SOURCE_DIR"
-    rsync -r "$DEST_DIR" "$SOURCE_DIR"
+    rsync -r "$DEST_DIR/" "$SOURCE_DIR/"
 }
 
 # Check for the required argument
