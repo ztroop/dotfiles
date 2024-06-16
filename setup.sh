@@ -5,7 +5,7 @@ display_help() {
     echo "Usage: ./setup.sh [option]"
     echo
     echo "Options:"
-    echo "  zsh                 Install ZSH and tools"
+    echo "  tools               Install ZSH and tools"
     echo "  autosuggestions     Install zsh-autosuggestions"
     echo "  syntaxhighlighting  Install zsh-syntax-highlighting"
     echo "  nvm                 Install NVM"
@@ -17,7 +17,7 @@ display_help() {
 }
 
 # Function to install ZSH and tools
-install_zsh_and_tools() {
+install_tools() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         # Assuming Mac
         if ! command -v brew &>/dev/null; then
@@ -25,9 +25,17 @@ install_zsh_and_tools() {
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
         echo "Installing/updating tools using Homebrew..."
-        brew install zsh bat tmux eza
+        brew install zsh bat tmux eza pyenv
     else
         # Assuming Linux
+
+        if ! command -v pyenv &>/dev/null; then
+            echo "Installing pyenv..."
+            /bin/bash -c "$(curl https://pyenv.run)"
+        else
+            echo "pyenv is already installed."
+        fi
+
         echo "You will to install bat and eza manually."
         if command -v apt &>/dev/null; then
             echo "Using APT to install/update tools..."
@@ -102,11 +110,12 @@ copy_config_files() {
     cp zshrc ~/.zshrc
     # Copy the .tmux.conf file to the home directory
     cp tmux.conf ~/.tmux.conf
+    echo "Configuration files copied."
 }
 
 # Check command line arguments
 if [ $# -eq 0 ]; then
-    install_zsh_and_tools
+    install_tools
     install_zsh_autosuggestions
     install_zsh_syntax_highlighting
     install_nvm
@@ -115,7 +124,7 @@ if [ $# -eq 0 ]; then
 else
     for arg in "$@"; do
         case $arg in
-        zsh) install_zsh_and_tools ;;
+        tools) install_tools ;;
         autosuggestions) install_zsh_autosuggestions ;;
         syntaxhighlighting) install_zsh_syntax_highlighting ;;
         nvm) install_nvm ;;
@@ -126,5 +135,3 @@ else
         esac
     done
 fi
-
-echo "Installation and setup completed."
