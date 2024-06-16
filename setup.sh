@@ -1,10 +1,26 @@
 #!/bin/bash
 
+# Function to display help information
+display_help() {
+    echo "Usage: ./setup.sh [option]"
+    echo
+    echo "Options:"
+    echo "  zsh                 Install ZSH and tools"
+    echo "  autosuggestions     Install zsh-autosuggestions"
+    echo "  syntaxhighlighting  Install zsh-syntax-highlighting"
+    echo "  nvm                 Install NVM"
+    echo "  rust                Install Rust"
+    echo "  config              Copy config files"
+    echo "  help                Display this help message"
+    echo
+    echo "Without any options, all tools will be installed."
+}
+
 # Function to install ZSH and tools
 install_zsh_and_tools() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         # Assuming Mac
-        if ! command -v brew &> /dev/null; then
+        if ! command -v brew &>/dev/null; then
             echo "Homebrew not found. Installing Homebrew..."
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
@@ -12,11 +28,12 @@ install_zsh_and_tools() {
         brew install zsh bat tmux eza
     else
         # Assuming Linux
-        if command -v apt &> /dev/null; then
+        echo "You will to install bat and eza manually."
+        if command -v apt &>/dev/null; then
             echo "Using APT to install/update tools..."
             sudo apt-get update
             sudo apt-get install -y zsh tmux
-        elif command -v yum &> /dev/null; then
+        elif command -v yum &>/dev/null; then
             echo "Using YUM to install/update tools..."
             sudo yum update
             sudo yum install -y zsh tmux
@@ -35,47 +52,79 @@ install_zsh_and_tools() {
     fi
 }
 
-# Check if zsh is installed; install it if not
-install_zsh_and_tools
-
 # Define ZSH_CUSTOM if it's not already set
 if [ -z "${ZSH_CUSTOM}" ]; then
     ZSH_CUSTOM=~/.oh-my-zsh/custom
 fi
 
 # Clone zsh-autosuggestions if it doesn't already exist
-if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions
-else
-    echo "zsh-autosuggestions is already installed."
-fi
+install_zsh_autosuggestions() {
+    if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions
+    else
+        echo "zsh-autosuggestions is already installed."
+    fi
+}
 
 # Clone zsh-syntax-highlighting if it doesn't already exist
-if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
-else
-    echo "zsh-syntax-highlighting is already installed."
-fi
+install_zsh_syntax_highlighting() {
+    if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
+    else
+        echo "zsh-syntax-highlighting is already installed."
+    fi
+}
 
 # Check if nvm is installed; install it if not
-if [ -z "${NVM_DIR}" ]; then
-    echo "nvm not found. Installing nvm..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh)"
-else
-    echo "nvm is already installed."
-fi
+install_nvm() {
+    if [ -z "${NVM_DIR}" ]; then
+        echo "nvm not found. Installing nvm..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh)"
+    else
+        echo "nvm is already installed."
+    fi
+}
 
-if command -v cargo &> /dev/null; then
-    echo "Rust is already installed. Updating..."
-    rustup update
-else
-    echo "Rust not found. Installing Rust..."
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-fi
+# Check if Rust is installed; install it if not
+install_rust() {
+    if command -v cargo &>/dev/null; then
+        echo "Rust is already installed. Updating..."
+        rustup update
+    else
+        echo "Rust not found. Installing Rust..."
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    fi
+}
 
-# Copy the .zshrc file to the home directory
-cp zshrc ~/.zshrc
-# Copy the .tmux.conf file to the home directory
-cp tmux.conf ~/.tmux.conf
+# Copy the configuration files to the home directory
+copy_config_files() {
+    # Copy the .zshrc file to the home directory
+    cp zshrc ~/.zshrc
+    # Copy the .tmux.conf file to the home directory
+    cp tmux.conf ~/.tmux.conf
+}
+
+# Check command line arguments
+if [ $# -eq 0 ]; then
+    install_zsh_and_tools
+    install_zsh_autosuggestions
+    install_zsh_syntax_highlighting
+    install_nvm
+    install_rust
+    copy_config_files
+else
+    for arg in "$@"; do
+        case $arg in
+        zsh) install_zsh_and_tools ;;
+        autosuggestions) install_zsh_autosuggestions ;;
+        syntaxhighlighting) install_zsh_syntax_highlighting ;;
+        nvm) install_nvm ;;
+        rust) install_rust ;;
+        config) copy_config_files ;;
+        help) display_help ;;
+        *) echo "Invalid argument: $arg" ;;
+        esac
+    done
+fi
 
 echo "Installation and setup completed."
