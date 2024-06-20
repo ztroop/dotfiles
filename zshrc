@@ -3,6 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 DISABLE_UPDATE_PROMPT=true
 DISABLE_AUTO_UPDATE=true
+ZSH_TMUX_AUTOSTART=true
 
 ZSH_THEME="robbyrussell"
 plugins=(git tmux zsh-autosuggestions zsh-syntax-highlighting)
