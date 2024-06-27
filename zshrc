@@ -10,6 +10,10 @@ plugins=(git tmux zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
+if [ -f "$HOME/.extras.zsh" ]; then
+    source "$HOME/.extras.zsh"
+fi
+
 alias ls="eza --long --header --git --all"
 alias b="bat -p"
 alias vim="nvim"
